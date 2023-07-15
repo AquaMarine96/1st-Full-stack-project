@@ -1,0 +1,110 @@
+body {
+    font-family: Arial, sans-serif;
+    margin-bottom: 100px;
+    padding: 0;
+  }
+  
+  .main-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    font-size: 50px;
+    margin: 10px ;
+    background-color: #333;
+    color: #d90000;
+    font-weight: bold;
+    
+    background-image: url(/images/home-pic.jpg);
+    background-size: cover;
+    background-position: center;
+    height: 250px;
+  }
+  
+  h2 {
+    text-align: center;
+    margin: 30px;
+  }
+  
+  .navigation {
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+    background-color: rgb(129, 1, 23);
+    padding: 10px;
+    margin: 10px 0;
+  }
+  
+  .navigation li {
+    margin: 0 10px;
+  }
+  
+  .navigation li a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .navigation li:hover {
+    background-color: #ffffff;
+    color: rgb(128, 19, 0);
+    
+    
+  }
+  
+  .navigation li a:hover {
+    color: rgb(128, 19, 0);
+  }
+  
+  a {
+    color: rgb(128, 19, 0);
+  }
+  
+  .top-block {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-right: 10px;
+  }
+  
+  button {
+    background-color: rgb(128, 19, 0);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 20px;
+    margin: 10px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .news {
+    margin: 30px;
+  }
+  
+  .post {
+    margin-bottom: 30px;
+    position:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    
+  }
+  
+  .news p {
+    display: flex;
+    position:center;
+    font-style: Arial, sans-serif;
+    font-size: larger;
+  }
+  .news li {
+    margin-bottom: 20px;
+    text-decoration: none;
+    list-style-type: none;
+  }
+  
+  .news li:hover p {
+    display: block;
+  }

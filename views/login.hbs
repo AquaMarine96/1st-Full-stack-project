@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Compass 
+       
+    </title>
+   
+    <link rel="stylesheet" href="/css/logStyle.css">
+    <link rel="stylesheet" href="/css/homepageStyle.css">
+</head>
+<body>
+    <a href = "/homepage"><img class = "main-logo"></a>
+    <div class ="primary-buttons">
+        <button id = "user">Student</button>
+        <button id = "admin">Staff</button>
+    </div>
+    <div class ="secondary-buttons" style = "display: none;">
+        <button id = "sign-up">Sign Up</button>
+        <button id = "log-in">Log In</button>
+        
+    </div>
+    <div class ="login-user">
+        <form action = "homepage.hbs" method = "get">
+            <label for="username">Username</label>
+            <input type="text" id="ulog-username" name="uname" placeholder="Your username.." required><br><br>
+            <label for="password">Password</label>
+            <input type="password" id="password" name="upsw" placeholder="Your password.." required><br><br>
+            <button type = "submit" id = "log-submit">Log In</button>
+            
+        </form>
+    </div>
+    <div class ="login-admin">
+        <form>
+            <label for="username">Username</label>
+            <input type="text" id="alog-username" name="aname" placeholder="Your username.." required><br><br>
+            <label for="password">Password</label>
+            <input type="password" id="password" name="apsw" placeholder="Your password.." required><br><br>
+            <button type = "submit" id = "log-submit">Log In</button>
+            
+        </form>
+    </div>
+    <div class="signup-form">
+
+        <form action = "/" method="post">
+            <label for="sign-username">Username</label>
+            <input type="text" id="sign-username"  placeholder="Your username.." required><br><br>
+            <label for="email">Email</label>
+            <input type="emal" id="email"  placeholder="Your email.." required><br><br>
+            <label for="password">Password</label>
+            <input type="password" id="password"  placeholder="Your password.." required><br><br>
+            {{!-- <label for="password2">Confirm Password</label>
+            <input type="text" id="password2" name="password2" placeholder="Your password.."><br><br> --}}
+            <input type = "submit" id = "sign-submit"></input>
+            
+        </form>
+        
+    </div>
+   <a href = "/"><button id = "back" style = "display:none;">Back</button></a>
+</body>
+</html>

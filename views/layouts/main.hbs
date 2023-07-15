@@ -2,10 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dofffffffffcument</title>
+    <title>yelloooo</title>
+    <link rel = "stylesheet" href = "/css/homepageStyle.css">
+    
 </head>
 <body>
-    {{{body}}}
-</body>
-</html>
+    <div class = "head">
+        <a href = "/"><button id = "logout">Log out</button></a>
+        <a href = "/contact.hbs"></a>
+    </div>
+    <div class = "titles">
+        
+        <h1 class = "main-title"> Student Compass</h1>
+        <h2>Welcome to the student services page of ECE University of Patras</h2>
+        {{>navbar}} 
+        {{{body}}}
+        {{>footer}}
+    </div>
