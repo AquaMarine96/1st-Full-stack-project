@@ -15,7 +15,7 @@ body {
     color: #d90000;
     font-weight: bold;
     
-    background-image: url(/images/home-pic.jpg);
+    /* background-image: url(/images/home-pic.jpg); */
     background-size: cover;
     background-position: center;
     height: 250px;

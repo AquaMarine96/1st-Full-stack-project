@@ -1,0 +1,47 @@
+<h1 class = "guide">Εδώ μπορείτε να επιλέξετε τα μαθήματα που θέλετε να παρακολουθήσετε</h1>
+
+<button id = "change" style = "display:none">Τροποποίηση Δήλωσης</button>
+<button id = "declare">Δήλωση Μαθημάτων</button>
+<div class = "selectedCourses" style = "display:none">
+    <h3>Επιλεγμένα Μαθήματα</h3>
+    <ul id = "courseList"></ul>
+
+</div>
+<form class = "selection" id = "selection" style = "display:none">
+    <fieldset>
+        <legend>Τομέας Η/Υ</legend>
+        <input type = "checkbox"id = "course">Εισαγωγή στην Επιστήμη των Υπολογιστών<br>
+        <input type = "checkbox"id = "course">Εισαγωγή στην Προγραμματισμό<br>
+        <input type = "checkbox"id = "course">Δομές Δεδομένων<br>
+        <input type = "checkbox"id = "course">Αρχές Λειτουργικών Συστημάτων<br>
+
+    </fieldset>
+    <fieldset>
+        <legend>Τομέας Ενέργειας</legend>
+        <input type = "checkbox" id = "course">Συστήματα Ηλεκτρικής Ενέργειας<br>
+        <input type = "checkbox" id = "course">Ηλεκτρικές Μηχανές<br>
+        <input type = "checkbox" id = "course">Δίκτυα Ισχύος<br>
+        <input type = "checkbox" id = "course">Υψηλές Τάσεις<br>
+    </fieldset>
+    <fieldset>
+        <legend>Τομέας Επικοινωνιών</legend>
+        <input type = "checkbox" id = "course">Ψηφιακές Επικοινωνίες<br>
+        <input type = "checkbox" id = "course">Ψηφιακή Επεξεργασία Σημάτων<br>
+        <input type = "checkbox" id = "course">Ασύρματες Επικοινωνίες<br>
+    </fieldset>
+    <fieldset>
+        <legend>Τομέας Αυτομάτου Ελέγχου</legend>
+        <input type = "checkbox" id = "course">Ανάλυση Συστημάτων<br>
+        <input type = "checkbox" id = "course">Συστήματα Αυτομάτου Ελέγχου<br>
+        <input type = "checkbox" id = "course">Γραμμικός Έλεγχος<br>
+        <input type = "checkbox" id = "course">Μη Γραμμικός Έλεγχος<br>
+        <button id ="save">Αποθήκευση</button>
+    </fieldset><br> 
+    
+</form>
+
+
+
+{{> footer}}
+<script defer src = "/scripts/schedule.js"></script>
+

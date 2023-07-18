@@ -20,8 +20,10 @@ app.set('partials', __dirname + '/views/partials');
 
 
 
+app.use(express.json());
+app.use(express.urlencoded({extended: false}));
 
-app.use('/', require('./server/routes/main'));
+app.use('/', require('./views/routes/main'));
 
 
 app.listen(port, () => { console.log(`Server running at http://localhost:${port}`)});
