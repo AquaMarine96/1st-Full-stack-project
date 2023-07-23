@@ -1,0 +1,29 @@
+<h1>{{user.username}}'s Profile</h1>
+
+<div class = "container"> 
+    <div class = "profile">
+        <img src = "https://www.gravatar.com/avatar/{{hash}}" alt = "Profile Picture">
+        <h2>{{user.username}}</h2>
+        <h3>{{user.email}}</h3>
+        <p>{{user.about}}</p>
+
+    <button class = "edit">Edit Profile</button>
+    <form action = "/profile" method = "post" id = "form">
+        <fieldset >
+            <legend>Personal Info</legend>
+            <label for = "username">Uername</label>
+            <input type = "text" name = "username" id = "username" placeholder = "New Username" >
+            <label for = "email">Email</label>
+            <input type = "email" name= "email" id = "email" placeholder = "New Email" >
+            <label for = "password">Password</label>
+            <input type = "password" name = "password" id = "password" placeholder = "New Password" >
+        </fieldset>
+        <fieldset>
+            <legend>About me</legend>\
+            <textarea name = "isabout"  cols = "30" rows = "10" placeholder = "About me"></textarea>
+        </fieldset>
+        <input type = "submit" value = "Save Changes" class = "save">
+    </form>
+</div>
+
+<script defer src = "/scripts/profile.js"></script>

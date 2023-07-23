@@ -8,7 +8,9 @@ const userSchema = new Schema({
     status:{type: String,default: 'user'},
     joined:{type: Date, default: Date.now()},
     updatedAt:{type: Date, default: Date.now()},
-    isAdmin:{type: Boolean, default: false}
+    isAdmin:{type: Boolean, default: false},
+    selectedCourses:{type: Array, default: []},
+    about:{type: String, default: ''}
     
 });
 

@@ -3,10 +3,10 @@ const Schema = mongoose.Schema;
 
 const courseSchema = new Schema({
     title: { type: String, required: true },
-    content: { type: String, required: true },
-    dateAdded: { type: Date, default: Date.now() },
-    status:{type: String, required: true, default: 'user'}
+    credits:{type: Number, required: true},
+    date: { type: Date, required: true },
+    
 });
 
-module.exports = mongoose.model('Course', courseSchema);
+module.exports = mongoose.model('Courses', courseSchema);
 

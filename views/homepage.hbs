@@ -32,6 +32,7 @@
  
     
     <ul class = "news">
+        <h2> News</h2>
         {{#each news}}
             <li class = "post">
                 <h1 style = "color:red">{{title}}</h1>
@@ -42,15 +43,15 @@
             
         {{/each}}
         {{#if nextpage}}
-            <a href = "homepage/?page={{nextpage}}"><button id = "next-page">Next</button></a>
+            <a href = "/homepage/?page={{nextpage}}"><button id = "next-page">Next</button></a>
         {{/if}}
         {{#if prevpage}}
-            <a href = "./"><button id = "prev-page">Prev</button></a>
+            <a href = "/homepage/?page={{prevpage}}"><button id = "prev-page">Prev</button></a>
         {{/if}}
         
     </ul>
     
-    {{#if user.isAdmin}}
+    {{!-- {{#if user.isAdmin}}
                 <button class = "delete-post">Delete</button>
             {{/if}}
     {{#if user.isAdmin}}    
@@ -61,7 +62,7 @@
             <button id = "save-news">Αποθήκευση</button>
         </form>   
     {{/if}}
-    
+     --}}
     
 </div>    
 

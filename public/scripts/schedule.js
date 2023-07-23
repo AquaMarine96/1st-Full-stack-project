@@ -1,5 +1,5 @@
 // Get all selected courses
-const form = document.getElementById('selection');
+const form = document.querySelector('.selection');
 const lista = document.querySelector("#courseList");
 const coursesDiv = document.querySelector(".selectedCourses");
 
@@ -45,7 +45,7 @@ saveButton.addEventListener('click', function (event) {
     console.log("saved");
     changeButton.style.display = "block";
     declareButton.style.display = "none";
-    event.preventDefault();
+    //event.preventDefault();
     coursesDiv.style.display = "block";
 });
 

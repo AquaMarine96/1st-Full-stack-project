@@ -1,0 +1,31 @@
+{{#if user.isAdmin}}
+        <ul class = "news">
+            {{#each news}}
+                <li class = "post">
+                    <h1 style = "color:red">{{title}}</h1>
+                    <span>{{added}}</span>
+                    <p style = "display:none">{{content}}</p>
+                    
+                </li>
+                <button class = "delete-post">Διαγραφή</button><br>
+            {{/each}}
+            {{#if nextpage}}
+                <a href = "home/?page={{nextpage}}"><button id = "next-page">Next</button></a>
+            {{/if}}
+            {{#if prevpage}}
+                <a href = "./"><button id = "prev-page">Prev</button></a>
+            {{/if}}
+        </ul><br>
+   
+        
+        
+       
+        <button id = "add-news">Προσθήκη ανακοίνωσης</button>
+        <form action = "/home" method = "get">
+            <input type = "text" placeholder = "Τίτλος"><br>
+            <input type = "text" placeholder = "Περιεχόμενο"><br>
+            <button id = "save-news">Αποθήκευση</button>
+        </form>   
+{{/if}} 
+
+{{!-- <script defer src ="/scripts/homepage.js"></script> --}}
