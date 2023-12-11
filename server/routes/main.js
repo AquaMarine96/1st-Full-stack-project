@@ -41,7 +41,7 @@ router.get('/',async (req,res) =>{
     //create admins
 
     // const user = await User.create({username: 'admin1', email: 'admin1@admin', password: 'admin1', status:"admin", isAdmin: true});
-    // const user = await User.findOne({username: 'admin1'});
+    //const user = await User.deleteOne({username: '1' });
     // const hashPass =  await bcrypt.hash(user.password, 10);
     // await user.updateOne({$set: {password: hashPass, email:'admin1@admin.com'}});
 
@@ -61,13 +61,15 @@ router.get('/homepage', auth, async (req, res) => {
         const perPage = 5;
         let page = req.query.page || 1;
         const news = await News.aggregate([{$sort: {added: -1}}]).skip(perPage * page - perPage).limit(perPage).exec();
-        
+        news.forEach(news =>{
+            news.added.toDateString();
+        })
         const totalNews = await News.count().lean();
         const nextPage = parseInt(page) + 1;
         const prevPage = parseInt(page) - 1;
         const hasNextPage = nextPage <= Math.ceil(totalNews / perPage);
         const hasPrevPage = prevPage >= 1;
-
+        
         const decoded = jwt.verify(req.cookies.token, jwtSecret)
         const user = await User.findById(decoded.id).lean();
         
@@ -145,7 +147,7 @@ router.post('/homepage', async (req,res) =>{
     try{
         const {username, password} = req.body;
         const user = await User.findOne({username}).lean();
-        if (!user){ 
+        if (!user && user.isAdmin === true){ 
             return res.status(401).json({message: 'Invalid credentials'});
         }
         
@@ -171,22 +173,20 @@ router.post('/homepage', async (req,res) =>{
 router.post('/schedule', auth, async(req,res) =>{
     
     
-    
     try{
-        const {checkId} = req.body;
+        console.log("hello");
         const decoded = jwt.verify(req.cookies.token, jwtSecret);
         const user = await User.findById(decoded.id).lean();
         //await User.updateOne(user, {$set: { selectedCourses: []}})
-        const cc = [checkId];
-        console.log(`cc = $`);
-        // const selected = [];
-        // for(i in cc){
-        //     selected.push(cc[i])
-        //     //const data = await Courses.findById({_id: cc[i]});
-        //     console.log(data.title);
-        // }
-        await User.updateOne(user,{ $set: { selectedCourses:checkId }});    
-        console.log(user)
+        
+
+        const {checkId} = req.body;
+
+        console.log(checkId);
+        
+        
+        await User.updateOne(user, {$set:{selectedCourses:checkId}});
+        console.log("user id is: ", user.selectedCourses)
         res.redirect('/schedule');
         
         
@@ -213,8 +213,12 @@ router.post('/profile', auth, async(req,res) =>{
         if(email !== user.email && email !== ''){
             await user.updateOne({$set: {email: email}})
         }
-        await user.updateOne({$set:{about: isabout }})
-        console.log(user.about);
+        if(isabout !== user.about && isabout !== ''){
+            await user.updateOne({$set:{about: isabout }})
+            console.log(user.about);
+        }else{
+            console.log("no change");
+        }
         res.redirect('/profile');
     }catch(error){
         console.log(error);

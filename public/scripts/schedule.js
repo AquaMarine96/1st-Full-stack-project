@@ -4,7 +4,7 @@ const lista = document.querySelector("#courseList");
 const coursesDiv = document.querySelector(".selectedCourses");
 
 
-let saveButton = document.querySelector('#save');
+let saveButton = document.querySelector('input');
 
 let declareButton = document.querySelector('#declare');
 let changeButton = document.querySelector('#change');
@@ -41,11 +41,12 @@ checkboxes.forEach(checkbox => {
 // Create list items for selected courses
 
 saveButton.addEventListener('click', function (event) {
+  console.log("clicked the save button");
     form.style.display = "none";
     console.log("saved");
     changeButton.style.display = "block";
     declareButton.style.display = "none";
-    //event.preventDefault();
+    
     coursesDiv.style.display = "block";
 });
 
