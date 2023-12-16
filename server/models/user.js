@@ -2,6 +2,7 @@ const { ObjectId } = require('mongoose');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+
 const userSchema = new Schema({
     profilePic:{type: String, default:'C:\Users\andre\OneDrive\Desktop\ACADEMICS\ΣΧΟΛΗ\Web\Student-Compass\public\images\profilepic.png'},
     username:{type: String, required: true},
@@ -11,7 +12,7 @@ const userSchema = new Schema({
     joined:{type: Date, default: Date.now()},
     updatedAt:{type: Date, default: Date.now()},
     isAdmin:{type: Boolean, default: false},
-    selectedCourses:[{type: ObjectId, ref: 'Courses'}],
+    selectedCourses:[],
     about:{type: String, default: ''}
     
 });

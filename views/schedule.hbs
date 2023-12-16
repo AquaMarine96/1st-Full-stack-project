@@ -1,25 +1,29 @@
 <h1 class = "guide">Select Courses</h1>
 
 <button id = "change" style = "display:none">Τροποποίηση Δήλωσης</button>
-<button id = "declare">Δήλωση Μαθημάτων</button>
+
 <div class = "selectedCourses" style = "display:none">
     <h3>Επιλεγμένα Μαθήματα</h3>
-    <ul id = "courseList">
+   
+    
+    {{!-- <ul id = "courseList">
         {{#each selectedCourses}}
         
             <li>{{selectedCourses}}</li>
         {{/each}}    
-    </ul>    
+    </ul>     --}}
 
 </div>
-
+{{#each selectedCourses}}
+    <li>{{#with (lookup ../courses [_id])}} {{courses.title}} {{/with}}</li>
+{{/each}}
 <div class = "schedule">
     
-    <form action = "/schedule"  class = "selection"  style = "display: none" method = "post">
+    <form action = "/myCourses"  class = "selection"  style = "display: block" method = "post">
         {{#each courses}}
             <input type="checkbox" name = "checkId" value = "{{_id}}"> {{title}}<br>
         {{/each}}
-        <input type = "submit" >
+        <input type = "submit" id = 'save' >
     </form>
 
 

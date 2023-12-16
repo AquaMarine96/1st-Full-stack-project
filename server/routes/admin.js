@@ -136,6 +136,7 @@ router.post('/create_course', auth, async(req,res) =>{
     }catch(error){
         console.log(error);
     }
+
 });
 //new course added
 

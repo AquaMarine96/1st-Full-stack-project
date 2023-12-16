@@ -1,4 +1,4 @@
-//This page refers to the routes of the user. 
+//This File refers to the routes of the user. 
 
 
 const express = require('express');
@@ -11,6 +11,7 @@ const bcrypt = require('bcrypt');
 
 const jwt = require('jsonwebtoken');
 const { default: mongoose } = require('mongoose');
+const courses = require('../models/courses');
 const jwtSecret = process.env.JWT_SECRET;
 
 
@@ -45,10 +46,6 @@ router.get('/',async (req,res) =>{
     // const hashPass =  await bcrypt.hash(user.password, 10);
     // await user.updateOne({$set: {password: hashPass, email:'admin1@admin.com'}});
 
-
-
-    //await makeList();
-    //await Courses.updateMany({$set: {id: 1}});
     res.render('login', {layout: false, title: 'Welcome to User Compass'})
 });
    
@@ -88,22 +85,35 @@ router.get('/homepage', auth, async (req, res) => {
 
 //Route to get the schedule an courses view
 
-router.get('/schedule', auth,async (req,res) =>{
+router.get('/myCourses', auth,async (req,res) =>{
 
     try{
         
         const courses = await Courses.find().lean();      
-
+        
         const decoded = jwt.verify(req.cookies.token, jwtSecret)
         const user = await User.findById(decoded.id).lean();
 
-        res.render('schedule', { title: 'Schedule',courses, user});
+        res.render('myCourses', { title: 'My Courses',courses, user});
         
         
     }catch(error){
         console.log(error);
     }
 });
+
+//Rpute to Get schedule view
+router.get('/schedule', auth, async (req,res) =>{
+    try{
+        const decoded = jwt.verify(req.cookies.token, jwtSecret)
+        const user = await User.findById(decoded.id).lean();
+        const courses = await Courses.find().lean();      
+        res.render('schedule', {title: 'Select Courses', courses, user});
+    }catch(error){
+        console.log(error);
+    }
+});
+
 
 
 //Route to get the profile view
@@ -170,25 +180,35 @@ router.post('/homepage', async (req,res) =>{
 
 //Form POST for Course selection
 
-router.post('/schedule', auth, async(req,res) =>{
+router.post('/myCourses', auth, async(req,res) =>{
     
     
     try{
-        console.log("hello");
+        
         const decoded = jwt.verify(req.cookies.token, jwtSecret);
         const user = await User.findById(decoded.id).lean();
-        //await User.updateOne(user, {$set: { selectedCourses: []}})
         
+        let selected = [];
 
-        const {checkId} = req.body;
-
+        let {checkId} = req.body;
+        if(!Array.isArray(checkId)){
+            checkId = [checkId];
+        }
+        for (i of checkId){
+            let objId = new mongoose.Types.ObjectId(i);
+            let into = await Courses.findById(objId);
+            selected.push(into);
+        }
+        
         console.log(checkId);
         
         
-        await User.updateOne(user, {$set:{selectedCourses:checkId}});
-        console.log("user id is: ", user.selectedCourses)
-        res.redirect('/schedule');
         
+        await User.updateOne(user, {$set:{selectedCourses:selected}});
+        if (user){
+        
+            res.redirect('myCourses');
+        };
         
     }catch(error){
         console.log(error);
@@ -227,62 +247,3 @@ router.post('/profile', auth, async(req,res) =>{
 
 
 module.exports = router;
-
-
-
-// function makeList() {
-//     const courses = Courses.insertMany([
-        
-        
-//             {
-//             title: "Digital Signal Processing",
-//             credits: 3,
-//             date: "2023-08-28"
-//             },
-//             {
-//             title: "Electronic Circuits",
-//             credits: 4,
-//             date: "2023-08-30"
-//             },
-//             {
-//             title: "Communication Systems",
-//             credits: 3,
-//             date: "2023-09-01"
-//             },
-//             {
-//             title: "Microelectronics",
-//             credits: 4,
-//             date: "2023-09-05"
-//             },
-//             {
-//             title: "Embedded Systems",
-//             credits: 3,
-//             date: "2023-09-08"
-//             },
-//             {
-//             title: "Analog Integrated Circuits",
-//             credits: 4,
-//             date: "2023-09-11"
-//             },
-//             {
-//             title: "VLSI Design",
-//             credits: 3,
-//             date: "2023-09-14"
-//             },
-//             {
-//             title: "Control Systems",
-//             credits: 4,
-//             date: "2023-09-16"
-//             },
-//             {
-//             title: "Electromagnetic Fields",
-//             credits: 3,
-//             date: "2023-09-18"
-//             },
-//             {
-//             title: "Digital Electronics",
-//             credits: 3,
-//             date: "2023-09-20"
-//             }
-        
-//     ]);}

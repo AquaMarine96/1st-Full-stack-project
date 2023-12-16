@@ -4,15 +4,15 @@ const lista = document.querySelector("#courseList");
 const coursesDiv = document.querySelector(".selectedCourses");
 
 
-let saveButton = document.querySelector('input');
+let saveButton = document.querySelector('#save');
 
 let declareButton = document.querySelector('#declare');
 let changeButton = document.querySelector('#change');
 
-declareButton.addEventListener('click', function () {
-    form.style.display = "block";
-    console.log("clicked");
-});
+// declareButton.addEventListener('click', function () {
+//     form.style.display = "block";
+//     console.log("clicked");
+// });
     
 
 
@@ -46,7 +46,7 @@ saveButton.addEventListener('click', function (event) {
     console.log("saved");
     changeButton.style.display = "block";
     declareButton.style.display = "none";
-    
+    //event.preventDefault();
     coursesDiv.style.display = "block";
 });
 
