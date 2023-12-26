@@ -14,7 +14,7 @@ const cookieParser = require('cookie-parser');
 const mongoStore = require('connect-mongo');
 const session = require('express-session');
 const bodyParser = require('body-parser');
-
+//const bootstrap = require('bootstrap');
 
 // Connect the database
 
@@ -31,7 +31,7 @@ app.set('views', __dirname + '/views');
 app.set('partials', __dirname + '/views/partials');
 app.use(express.static('public'));
 
-//app.use(bodyParser.json());
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(express.json());
 // app.use(express.urlencoded({extended: true}));

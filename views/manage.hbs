@@ -1,19 +1,16 @@
 <h2>Manage courses</h2>
 
 
-<a href = '/create-course'>Add a new Course</a>
+<a href = '/createCourse'>Add a new Course</a>
 
 
-
-<form action = '/manage' title = 'Delete course' method = 'delete'>
-    {{#each courses}}
-        <li>
-            {{title}}
-            <form action = "/manage" method = 'delete'>
+{{#each courses}}
+    <li>
+        {{title}}
+        <form action = "/delete-course" method = 'post'>
             <input type = 'hidden' name = 'courseId' value = '{{_id}}'>
-                <button type = 'submit' >Delete</button>
-            </form>
-        </li>
-        
-    {{/each}}
-</form>
+            <input type = 'submit' value = "Delete course" >
+        </form>
+    </li>
+    
+{{/each}}

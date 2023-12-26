@@ -37,6 +37,8 @@ const auth = (req,res, next) =>{
 
 router.get('/home', auth, async (req, res) => {
     try{
+        const decoded = jwt.verify(req.cookies.token, jwtSecret)
+        const user = await User.findById(decoded.id).lean();
         const perPage = 6;
         let page = req.query.page || 1;
         const news = await News.aggregate([{$sort: {added: -1}}]).skip(perPage * page - perPage).limit(perPage).exec();
@@ -49,9 +51,8 @@ router.get('/home', auth, async (req, res) => {
         const hasNextPage = nextPage <= Math.ceil(totalNews / perPage);
         const hasPrevPage = prevPage >= 1;
         
-        const decoded = jwt.verify(req.cookies.token, jwtSecret)
-        const user = await User.findById(decoded.id).lean();
-        console.log(news)
+        
+       
         res.render('home', { layout: 'dashboard',
            title: 'Edit Homepage', news,  
           current: page, nextpage: hasNextPage ? nextPage : null,
@@ -63,13 +64,38 @@ router.get('/home', auth, async (req, res) => {
     }
 });
 
+//Home POST- Add a news
+
+router.post('/add-news', auth, async(req,res)=>{
+    try{
+        const {tit, desc} = req.body;
+        const neo = await News.create({title: tit, content: desc});
+        res.redirect('/home');
+    }catch(error){
+        console.log(error);
+    }
+
+});
+
+// Home - Delete News
+
+router.post('/delete-news', auth, async(req,res) => {
+    try{
+        let {newsId} = req.body
+        await News.deleteOne({_id: new mongoose.Types.ObjectId(newsId)});
+        res.redirect('/home');
+    }catch(error){
+        console.log(error);
+    }
+});
+
 //Admin Login
 
 router.post('/home', async (req,res) =>{
     try{
         const {username, password} = req.body;
         const user = await User.findOne({username}).lean();
-        if (!user){ 
+        if (!user || user.isAdmin === false){ 
             return res.status(401).json({message: 'Invalid credentials'});
         }
         
@@ -118,19 +144,21 @@ router.get('/users',auth, async (req, res) => {
     }
 });
 
+//Create a Course
 
-
-router.get('/create-course',auth, async (req, res) => {
+router.get('/createCourse',auth, async (req, res) => {
     try{
-        res.render('create-course', { layout:'dashboard', title: 'Add Course'});
+        res.render('createCourse', { layout:'dashboard', title: 'Add Course'});
     }catch(error){
 
     }
 });
 
-router.post('/create_course', auth, async(req,res) =>{
+router.post('/manage', auth, async(req,res) =>{
     try{
         const {CourseName, CourseCode} = req.body;
+        
+        
         const course = await Courses.create({title:CourseName, credits:CourseCode});
         res.redirect('/manage');
     }catch(error){
@@ -138,14 +166,13 @@ router.post('/create_course', auth, async(req,res) =>{
     }
 
 });
-//new course added
 
-router.delete('/manage/Courses/:id', async (req, res) => {
+//Delete a Course
+
+router.post('/delete-course', async (req, res) => {
     try{
-        
-
-        const courseId = req.params.id;
-        await Courses.deleteOne({_id:courseId});
+        const{courseId} = req.body;
+        await Courses.deleteOne({_id:new mongoose.Types.ObjectId(courseId)});
         res.redirect('/manage');
     }catch(error){
         console.log(error);

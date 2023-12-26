@@ -2,18 +2,22 @@
         <ul class = "news">
             {{#each news}}
                 <li class = "post">
+
                     <h1 style = "color:red">{{title}}</h1>
                     <span>{{added}}</span>
                     <p style = "display:none">{{content}}</p>
-                    
+                    <form action="/delete-news" method="post">
+                        <input type="hidden" name = "newsId" value="{{_id}}">
+                        <input type="submit" value = "Delete News">
+                    </form>
                 </li>
-                <button class = "delete-post">Διαγραφή</button><br>
+                
             {{/each}}
             {{#if nextpage}}
-                <a href = "home/?page={{nextpage}}"><button id = "next-page">Next</button></a>
+                <a href = "/home/?page={{nextpage}}"><button id = "next-page">Next</button></a>
             {{/if}}
             {{#if prevpage}}
-                <a href = "./"><button id = "prev-page">Prev</button></a>
+                <a href = "/home/?page={{prevpage}}"><button id = "prev-page">Prev</button></a>
             {{/if}}
         </ul><br>
    
@@ -21,9 +25,9 @@
         
        
         <button id = "add-news">Προσθήκη ανακοίνωσης</button>
-        <form action = "/home" method = "get">
-            <input type = "text" placeholder = "Τίτλος"><br>
-            <input type = "text" placeholder = "Περιεχόμενο"><br>
+        <form action = "/add-news" method = "post">
+            <input type = "text" name = "tit" placeholder = "Τίτλος"><br>
+            <input type = "text" name = "desc" placeholder = "Περιεχόμενο"><br>
             <button id = "save-news">Αποθήκευση</button>
         </form>   
 {{/if}} 

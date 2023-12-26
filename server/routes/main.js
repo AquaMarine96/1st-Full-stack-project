@@ -41,10 +41,10 @@ router.get('/',async (req,res) =>{
 
     //create admins
 
-    // const user = await User.create({username: 'admin1', email: 'admin1@admin', password: 'admin1', status:"admin", isAdmin: true});
-    //const user = await User.deleteOne({username: '1' });
-    // const hashPass =  await bcrypt.hash(user.password, 10);
-    // await user.updateOne({$set: {password: hashPass, email:'admin1@admin.com'}});
+    //const user = await User.create({username: 'admin1', email: 'admin1@admin', password: 'admin1', status:"admin", isAdmin: true});
+    //const user = await User.deleteOne({username: 'admin1' });
+    //const hashPass =  await bcrypt.hash(user.password, 10);
+    //await user.updateOne({$set: {password: hashPass, email:'admin1@admin.com'}});
 
     res.render('login', {layout: false, title: 'Welcome to User Compass'})
 });
@@ -55,7 +55,7 @@ router.get('/',async (req,res) =>{
 
 router.get('/homepage', auth, async (req, res) => {
     try{
-        const perPage = 5;
+        const perPage = 6;
         let page = req.query.page || 1;
         const news = await News.aggregate([{$sort: {added: -1}}]).skip(perPage * page - perPage).limit(perPage).exec();
         news.forEach(news =>{
@@ -157,8 +157,11 @@ router.post('/homepage', async (req,res) =>{
     try{
         const {username, password} = req.body;
         const user = await User.findOne({username}).lean();
-        if (!user && user.isAdmin === true){ 
+        if (!user ){ 
             return res.status(401).json({message: 'Invalid credentials'});
+        }
+        if( user.isAdmin === true){
+            return res.status(401).json({message: 'Invalid User'});
         }
         
         const validPass = await bcrypt.compare(password, user.password);
