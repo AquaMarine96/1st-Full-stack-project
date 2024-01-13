@@ -135,7 +135,7 @@ router.get('/users',auth, async (req, res) => {
     try{
         const users = await User.find({status:'user'}).lean();      
 
-        const decoded = jwt.verify(req.cookies.token, jwtSecret)
+        const decoded = jwt.verify(req.cookies.token, jwtSecret);
         const user = await User.findById(decoded.id).lean();
 
         res.render('users', { layout:'dashboard', title: 'Manage Users',users, user});
@@ -144,10 +144,29 @@ router.get('/users',auth, async (req, res) => {
     }
 });
 
+// Delete Users
+
+router.post('/delete-user', auth, async(req,res)=> {
+    try{
+        
+        const {userId} = req.body;
+        const deletedUser = await User.findOne({_id:new mongoose.Types.ObjectId(userId)});
+        await deletedUser.deleteOne();
+        console.log('user', deletedUser.username ,'deleted');
+        res.redirect('/users');
+    }
+    catch(error){
+        console.log(error);
+    }
+})
+
 //Create a Course
 
 router.get('/createCourse',auth, async (req, res) => {
     try{
+        const decoded = jwt.verify(req.cookies.token, jwtSecret);
+        const user = await User.findById(decoded.id).lean();
+
         res.render('createCourse', { layout:'dashboard', title: 'Add Course'});
     }catch(error){
 
@@ -172,7 +191,19 @@ router.post('/manage', auth, async(req,res) =>{
 router.post('/delete-course', async (req, res) => {
     try{
         const{courseId} = req.body;
+        
+        let updateUsers = await User.find({status:'user'});
+        for(i of updateUsers){           
+            for(j of i.selectedCourses){
+                if (j._id == courseId){                    
+                    i.selectedCourses.pull(j);
+                    i.save();
+                }               
+            }
+            console.log(i.username, i.selectedCourses);
+        }
         await Courses.deleteOne({_id:new mongoose.Types.ObjectId(courseId)});
+        
         res.redirect('/manage');
     }catch(error){
         console.log(error);

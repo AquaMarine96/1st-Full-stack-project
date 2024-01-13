@@ -1,0 +1,10 @@
+
+{{#each users}}
+    <li>
+        {{username}}
+        <form action='/delete-user' method='post'>
+            <input type='hidden' name='userId' value='{{_id}}'>
+            <input type='submit' value='Delete'>
+        </form>
+    </li>
+{{/each}}

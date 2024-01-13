@@ -93,7 +93,7 @@ router.get('/myCourses', auth,async (req,res) =>{
         
         const decoded = jwt.verify(req.cookies.token, jwtSecret)
         const user = await User.findById(decoded.id).lean();
-
+        
         res.render('myCourses', { title: 'My Courses',courses, user});
         
         
