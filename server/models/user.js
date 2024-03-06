@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 
 const userSchema = new Schema({
-    profilePic:{type: String, default:'C:\Users\andre\OneDrive\Desktop\ACADEMICS\ΣΧΟΛΗ\Web\Student-Compass\public\images\profilepic.png'},
+    profilePic:{type: String},
     username:{type: String, required: true},
     email:{type: String, required: true},
     password:{ type: String, required: true},
